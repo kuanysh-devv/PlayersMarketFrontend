@@ -1,12 +1,44 @@
+
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+
+    <MevnHeader :categories="categories" :cartCount="cartCount"/>
+    <router-view />
+  </div>
 </template>
 
-<style>
+<script>
+import { mapActions, mapGetters} from 'vuex'
+import MevnHeader from '@/components/layouts/Header.vue'
+  export default {
+    name: 'App',
+    components: {
+      MevnHeader
+    },
+    mounted(){
+      this.fetchCategories();
+    },
+
+    methods: {
+      ...mapActions({
+        fetchCategories: 'fetchCategories'
+      })
+    },
+    computed: {
+      ...mapGetters({
+        categories: 'categories',
+        cartCount: 'cartCount'
+      }),
+    }
+  }
+</script>
+
+<style lang="scss">
+body, html {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
